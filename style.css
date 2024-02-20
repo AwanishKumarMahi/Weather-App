@@ -24,7 +24,6 @@ body{
     display: flex;
     align-items:center;
     justify-content: space-between;
-    flex-wrap:wrap;
 }
 
 .search input{
@@ -32,12 +31,12 @@ body{
     outline: 0;
     background: #ebfffc;
     color: #555;
-    padding: .5em 1.5em;
-    height: 3.4em;
+    padding: 10px 25px;
+    height: 60px;
     border-radius: 10px;
     flex:1;
-    margin: 1em;
-    font-size: 1.1em;
+    margin: 16px;
+    font-size: 18px;
     box-shadow: 10px 10px 10px #000000cd;
 }
 
@@ -46,8 +45,8 @@ body{
     outline: 0;
     background: #ebfffc;
     border-radius: 40%;
-    width: 4.2em;
-    height: 4.2em;
+    width: 55px;
+    height: 55px;
     cursor: pointer;
     box-shadow: 10px 10px 10px;
 
@@ -59,24 +58,28 @@ body{
 }
 
 .weather-icon{
-    width: 50%;
-    margin: 2em 0;
+    width: 200px;
+    margin: 30px 0;
+    padding: 10px;
+    border-radius: 50%;
+    /* box-shadow: 10px 10px 10px #000000b0; */
+    
 }
 
 .weather h1{
-    font-size: 3em;
+    font-size: 45px;
     font-weight: 400;
 }
 .weather h2{
-    font-size: 2.5em;
+    font-size: 45px;
     font-weight: 400;
+    /* margin-top: 10px; */
 }
 
 .details{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
     padding: 0 20px;
     margin-top: 50px;
 
@@ -86,7 +89,6 @@ body{
     display: flex;
     align-items: center;
     text-align: left;
-    margin: 1em;
 }
 
 .col img{
