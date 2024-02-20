@@ -9,9 +9,11 @@ inp.addEventListener("keypress", (Event)=>{
         btn.click();
     }
 });
+
 function sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
+
 btn.addEventListener('click', ()=>{
     btn.style.boxShadow =  "0px 0px 10px";
     btn.style.transform = "scale(0.9)";
@@ -21,43 +23,52 @@ btn.addEventListener('click', ()=>{
         btn.style.transform = "scale(1)";
         btn.style.backgroundColor = "#ebfffc";
     })
-    console.dir(btn);
 });
 
 async function fetchData(city='Delhi'){
-    let response = await fetch(apiUrl+"&appid="+apiKey+"&q="+city);
-    let data = await response.json();
-    return data;
+    
+        let response = await fetch(apiUrl+"&appid="+apiKey+"&q="+city);
+        if(response.ok){
+            let data = await response.json();
+            return data;
+        }
+        else{
+            console.log("Error occure while fetching.");
+            return null;
+        }
 }
 
-function setData(){
+async function setData() {
     let city_searched = document.getElementById("search");
-    if(!city_searched.value){
-        city_searched.value="Delhi";
+    if (!city_searched.value) {
+        city_searched.value = "Delhi";
     }
-    fetchData(city_searched.value.trim())
-    .then((req,res)=>{
+    try {
+        let data = await fetchData(city_searched.value.trim());
         let temp = document.getElementsByClassName("temp");
         let city = document.getElementsByClassName("city");
         let humidity = document.getElementsByClassName("humidity");
         let wind = document.getElementsByClassName("wind");
-        
-        
-        // console.log(req.weather[0].icon);
-        
-        temp[0].innerText = Math.round(req.main.temp)+"°c";
-        city[0].innerText = req.name;
-        humidity[0].innerText = Math.round(req.main.humidity)+"%";
-        wind[0].innerText = Math.round(req.wind.speed * 3.6)+"Km/h";
-        
-        setIcon(req.weather[0].icon);
-        
-    })
-    .catch((err)=>{
-        console.log("Error occure: "+err);
-    });
+        if (data) {
+            temp[0].innerText = Math.round(data.main.temp) + "°c";
+            city[0].innerText = data.name;
+            humidity[0].innerText = Math.round(data.main.humidity) + "%";
+            wind[0].innerText = Math.round(data.wind.speed * 3.6) + "Km/h";
 
+            setIcon(data.weather[0].icon);
+        } else {
+            temp[0].innerText = "No city found";
+            city[0].innerText = "";
+            humidity[0].innerText = "";
+            wind[0].innerText = "";
+
+            setIcon("");
+        }
+    } catch (err) {
+        console.log("Error occurred while setting data:", err);
+    }
 }
+
 
 function setIcon(icon){
     let we_icon = document.getElementsByClassName("weather-icon")[0];
